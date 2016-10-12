@@ -2,10 +2,10 @@
 
 one:
   purchase_date: 2016-10-12 08:03:11
-  album_id: 
+  album_id: :bounce
   amount: 9.99
 
 two:
   purchase_date: 2016-10-12 08:03:11
-  album_id: 
+  album_id: :the_getaway
   amount: 9.99

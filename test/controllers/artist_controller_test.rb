@@ -4,10 +4,11 @@ class ArtistControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
+    assert_template :index
   end
 
   test "should get show" do
-    get :show, {id: 1 }
+    get :show, {id: artists(:bonjovi).id }
     assert_response :success
   end
 
@@ -17,23 +18,37 @@ class ArtistControllerTest < ActionController::TestCase
   end
 
   test "should get edit" do
-    get :edit
+    get :edit, {id: 1 }
     assert_response :success
   end
 
-  test "should get create" do
-    get :create
+  test "should be able to create an artist" do
+    post_params = {artist: {name: "Regina Spektor"} }
+    post :create, post_params
+    assert_response :redirect
+  end
+
+  test "Creating an Artist changes the number of artists" do
+    assert_difference("Artist.count", 1) do
+      post_params = {artist: {name: "Regina Spektor"} }
+      post :create, post_params
+    end
+  end
+
+  test "should be able to update an artist" do
+    patch :update, {id: 1 }
     assert_response :success
   end
 
-  test "should get update" do
-    get :update
-    assert_response :success
+  test "should be able to delete" do
+    delete :destroy, { id: artists(:bonjovi).id }
+    assert_response :redirect #checks for redirect
   end
 
-  test "should get delete" do
-    get :delete
-    assert_response :success
+  test "should be able to delete Bon Jovi" do
+    assert_difference("Artist.count", -1) do
+      delete :destroy, { id: artists(:bonjovi).id }
+    end
   end
 
 end
